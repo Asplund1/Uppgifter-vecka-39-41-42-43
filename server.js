@@ -11,7 +11,7 @@ app.get('/boom', (_req, res) => {
   console.error(`[TEST-ERROR] ${new Date().toISOString()} – medvetet fel`);
   res.status(500).json({ ok: false, error: 'Boom (test 500)' });
 });
-
+// uppgift 1 klar
 
 app.listen(port, () => {
   console.log(`Server listening on ${port}`);
