@@ -11,9 +11,9 @@ app.get("/", (_req, res) => res.send("Hello from App Service + ACR!"));
  * - Loggas som console.error (syns i Log Stream)
  * - Svarar 500 (syns i Metrics/Alerts)
  */
-app.get("/boom", (_req, res) => {
+app.get('/boom', (_req, res) => {
   console.error(`[TEST-ERROR] ${new Date().toISOString()} – medvetet fel`);
-  res.status(500).json({ ok: false, error: "Boom (test 500)" });
+  res.status(500).json({ ok: false, error: 'Boom (test 500)' });
 });
 
 app.listen(port, () => {
