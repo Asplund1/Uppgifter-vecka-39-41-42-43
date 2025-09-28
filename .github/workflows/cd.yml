@@ -12,6 +12,6 @@ jobs:
       - name: Deploy to Azure WebApp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: "andreas-webapp"  # byt till ditt App Service-namn
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          app-name: "andreas-webapp" 
+          publish-profile: ${{ secrets.PUBLISH_PROFILE }}
           images: "${{ secrets.ACR_URL }}/andreas-app:latest"
