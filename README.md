@@ -15,3 +15,19 @@ När ny kod mergas från `vecka-41-dev` till `main` triggas automatiskt en deplo
 https://mango-moss-0a89e7603.3.azurestaticapps.net
 
 Detta visar att Continuous Delivery fungerar fullt ut, inga manuella steg behövs för att publicera nya versioner.
+
+## Miljöseparation för Backend (Uppgift 5)
+
+Jag har nu två separata backendmiljöer i Azure App Service:
+
+| Miljö | Azure-resurs | Syfte |
+|-------|---------------|--------|
+| API-DEV | andreas-webapp | Test och utveckling |
+| API-PROD | andreas-webapp-prod | Skarp drift |
+
+**Reflektion (K2):**  
+I en verklig applikation bör dessa ligga i olika Resource Groups.  
+Det gör det enklare att:
+- ge olika åtkomsträttigheter (RBAC),
+- separera loggar, budgetar och pipelines,
+- och minska risken att testkod påverkar produktionen.
