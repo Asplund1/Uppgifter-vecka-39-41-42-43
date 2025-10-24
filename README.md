@@ -73,3 +73,4 @@ Varje gång kod mergas till `main` sker en automatisk deployment till denna län
 https://mango-moss-0a89e7603.3.azurestaticapps.net
 
 Denna miljö är isolerad från staging och används som den slutliga versionen för slutanvändare.
+a
