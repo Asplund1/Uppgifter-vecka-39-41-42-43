@@ -73,4 +73,18 @@ Varje gång kod mergas till `main` sker en automatisk deployment till denna län
 https://mango-moss-0a89e7603.3.azurestaticapps.net
 
 Denna miljö är isolerad från staging och används som den slutliga versionen för slutanvändare.
-a
+
+## Uppgift 7 – Fullstack-synkronisering och miljövariabler
+
+Båda backendmiljöerna (DEV och PROD) är nu separata och isolerade.
+
+| Miljö | App Service | URL | Miljövariabler |
+|-------|--------------|-----|----------------|
+| API-DEV | andreas-webapp | https://andreas-webapp.azurewebsites.net | NODE_ENV = development |
+| API-PROD | andreas-webapp-prod | https://andreas-webapp-prod.azurewebsites.net | NODE_ENV = production |
+
+### Verifiering
+- `https://andreas-webapp.azurewebsites.net/api/hello` → environment: "development"  
+- `https://andreas-webapp-prod.azurewebsites.net/api/hello` → environment: "production"  
+
+Systemet har därmed två fullt isolerade backend-miljöer med spårbarhet, CI/CD och miljövariabler enligt DevOps-praxis.
