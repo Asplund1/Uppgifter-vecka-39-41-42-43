@@ -6,7 +6,7 @@
   "type": "module",
  "scripts": {
   "start": "node server.js",
-  "build": "echo 'No build step needed for backend server'",
+  "build": "echo 'No real build needed, just static files'",
   "test": "node -e \"console.log('No tests yet, skipping'); process.exit(0)\""
 },
   "repository": {
