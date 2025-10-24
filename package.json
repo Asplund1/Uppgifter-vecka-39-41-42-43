@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "type": "module",
- "scripts": {
-  "start": "node server.js",
-  "build": "echo 'No real build needed, just static files'",
-  "test": "node -e \"console.log('No tests yet, skipping'); process.exit(0)\""
-},
+  "scripts": {
+    "start": "node server.js",
+    "build": "echo 'No real build needed, just static files'",
+    "test": "jest"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Asplund1/vecka-39.git"
@@ -22,5 +22,8 @@
   "homepage": "https://github.com/Asplund1/vecka-39#readme",
   "dependencies": {
     "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "jest": "^30.2.0"
   }
 }
