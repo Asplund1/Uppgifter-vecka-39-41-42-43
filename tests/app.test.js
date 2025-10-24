@@ -1,5 +1,5 @@
 // tests/app.test.js
 
-test("should pass", () => {
-  expect(true).toBe(true);
+test("intentional fail", () => {
+  expect(true).toBe(false);
 });
