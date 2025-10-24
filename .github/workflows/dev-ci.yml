@@ -1,0 +1,42 @@
+name: Backend CI/CD - Dev
+
+on:
+  push:
+    branches:
+      - vecka-41-dev
+
+env:
+  ACR_URL: ${{ secrets.ACR_URL }}
+  IMAGE_NAME: api-backend
+
+jobs:
+  build-test-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Log in to Azure Container Registry
+        run: |
+          echo ${{ secrets.ACR_PASSWORD }} | docker login ${{ secrets.ACR_URL }} \
+          -u ${{ secrets.ACR_USERNAME }} --password-stdin
+
+      - name: Build Docker image
+        run: |
+          docker build -t $ACR_URL/$IMAGE_NAME:${{ github.sha }} .
+
+      - name: Run Unit Tests
+        run: |
+          npm ci
+          npm test
+
+      - name: Push image to ACR
+        run: |
+          docker push $ACR_URL/$IMAGE_NAME:${{ github.sha }}
+
+      - name: Deploy to Azure Web App (DEV)
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: andreas-webapp
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_DEV }}
+          images: ${{ secrets.ACR_URL }}/$IMAGE_NAME:${{ github.sha }}
