@@ -31,3 +31,26 @@ Det gör det enklare att:
 - ge olika åtkomsträttigheter (RBAC),
 - separera loggar, budgetar och pipelines,
 - och minska risken att testkod påverkar produktionen.
+
+## Backend CI/CD och Spårbarhet (Uppgift 6)
+
+Jag har satt upp två separata pipelines för backend:
+
+1. `dev-ci.yml`
+   - Trigger: push till `vecka-41-dev`
+   - Steg: bygga Docker-image, köra tester (`npm test`), pusha image till ACR, deploya till `andreas-webapp` (API-DEV)
+   - Om testerna failar stoppar pipelinen och ingen deploy sker
+   - Detta fungerar som en kvalitetsgrind
+
+2. `prod-ci.yml`
+   - Trigger: push till `main`
+   - Steg: bygga Docker-image, pusha image till ACR, deploya till `andreas-webapp-prod` (API-PROD)
+   - Inga tester körs här, produktion tar bara kod som redan gått igenom dev
+
+**Spårbarhet:**  
+Båda pipelines taggar Docker-imagen med commit SHA (`${{ github.sha }}`) i stället för `latest`.  
+Det gör att varje release kan spåras exakt till en commit.
+
+**Kvalitetsgrind:**  
+Om jag skapar ett medvetet trasigt test i `tests/app.test.js` och pushar till `vecka-41-dev` så stoppar dev-pipelinen i teststeget.  
+Prod-miljön (`andreas-webapp-prod`) fortsätter då att köra den senaste godkända imagen.
