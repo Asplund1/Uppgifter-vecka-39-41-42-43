@@ -15,3 +15,13 @@ https://purple-sky-0fa0ae403.azurestaticapps.net
 
 Till skillnad från Preview-URL:en (som tas bort när en PR stängs) är detta en stabil länk.  
 Den delas med externa intressenter, som produktägare, för att granska och testa godkända ändringar.
+
+## Produktionsmiljö (Uppgift 3)
+
+Den skarpa produktionsmiljön ligger nu på Azure Static Web Apps och är kopplad till `main`-branchen.  
+Varje gång kod mergas till `main` sker en automatisk deployment till denna länk:
+
+**Production URL:**  
+https://mango-moss-0a89e7603.3.azurestaticapps.net
+
+Denna miljö är isolerad från staging och används som den slutliga versionen för slutanvändare.
