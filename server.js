@@ -1,13 +1,35 @@
-// server.js
 import express from "express";
+import dotenv from "dotenv";
+dotenv.config(); // Laddar in .env-filen
+
 const app = express();
 
-// Port som funkar både lokalt och i App Service
+// Läs in port från .env, annars fallback till Azure eller 8080
 const port = process.env.WEBSITES_PORT || process.env.PORT || 8080;
 
-// === Root route ===
-// Används ofta av App Service för att verifiera att containern kör
+// Root route
 app.get("/", (_req, res) => res.send("Hello from App Service + ACR!"));
+/**
+ * @swagger
+ * /api/hello:
+ *   get:
+ *     summary: Hämtar ett hälsningsmeddelande
+ *     description: Returnerar ett JSON-objekt med hälsning, miljö och tid.
+ *     responses:
+ *       200:
+ *         description: Lyckad hämtning
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 environment:
+ *                   type: string
+ *                 timestamp:
+ *                   type: string
+ */
 
 // === Enkel API-endpoint för frontend (Uppgift 7) ===
 app.get("/api/hello", (_req, res) => {
@@ -18,13 +40,17 @@ app.get("/api/hello", (_req, res) => {
   });
 });
 
-// === Test-endpoint för Log Stream + 500 ===
-app.get("/boom", (_req, res) => {
-  console.error(`[TEST-ERROR] ${new Date().toISOString()} – medvetet fel`);
-  res.status(500).json({ ok: false, error: "Boom (test 500)" });
-});
+// Din dokumentationsroute
+import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
 
-// === Starta servern ===
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+app.use("/api/docs", express.static(path.join(__dirname, "api", "docs")));
+
+// Start servern
 app.listen(port, () => {
-  console.log(`✅ Server running on port ${port}`);
+  console.log(`✅ Server running on ${process.env.BASE_URL || "http://localhost:" + port}`);
 });

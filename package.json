@@ -7,7 +7,8 @@
   "scripts": {
     "start": "node server.js",
     "build": "echo 'No real build needed, just static files'",
-    "test": "jest"
+    "test": "jest",
+    "docs:generate": "node generate-docs.js"
   },
   "repository": {
     "type": "git",
@@ -21,7 +22,9 @@
   },
   "homepage": "https://github.com/Asplund1/vecka-39#readme",
   "dependencies": {
-    "express": "^5.1.0"
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "swagger-jsdoc": "^6.2.8"
   },
   "devDependencies": {
     "jest": "^30.2.0"
