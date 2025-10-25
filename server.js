@@ -40,7 +40,6 @@ app.get("/api/hello", (_req, res) => {
   });
 });
 
-// Din dokumentationsroute
 import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
@@ -48,7 +47,13 @@ import { dirname } from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+// Visa Swagger UI (index.html)
 app.use("/api/docs", express.static(path.join(__dirname, "api", "docs")));
+
+// Gör openapi.json tillgänglig
+app.get("/api/docs/openapi.json", (_req, res) => {
+  res.sendFile(path.join(__dirname, "docs", "openapi.json"));
+});
 
 // Start servern
 app.listen(port, () => {
