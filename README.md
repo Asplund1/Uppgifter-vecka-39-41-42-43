@@ -91,3 +91,21 @@ Båda backendmiljöerna (DEV och PROD) är nu separata och isolerade.
 - `https://andreas-webapp-prod.azurewebsites.net/api/hello` → environment: "production"  
 
 Systemet har därmed två fullt isolerade backend-miljöer med spårbarhet, CI/CD och miljövariabler enligt DevOps-praxis.
+
+
+## Vecka 43 
+
+Säkerhetsscanning (Snyk + policy)
+
+Efter att Snyk integrerades i CI/CD-pipelinen kördes en säkerhetsscan automatiskt.
+Snyk gick igenom 98 beroenden och hittade 2 sårbarheter med medium severity (inflight och validator). Det finns i nuläget inga tillgängliga uppdateringar eller patchar för dessa, eftersom de kommer från indirekta beroenden.
+
+För ett skarpt projekt hade policyn troligen varit:
+
+Deployment till produktion ska blockeras om Snyk hittar sårbarheter med severity high eller critical.
+
+medium får deployas till utvecklingsmiljö, men ska följas upp och bevakas tills en fix finns.
+
+low accepteras tills vidare.
+
+I det här läget innebär det att applikationen kan fortsätta rullas ut till dev, men vi följer sårbarheterna över tid och uppdaterar beroenden så fort leverantörerna släpper en fix.
