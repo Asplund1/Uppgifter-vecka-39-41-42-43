@@ -3,7 +3,7 @@ name: Backend CI/CD - Dev
 on:
   push:
     branches:
-      - vecka-41-dev
+      - vecka-42-dev
 
 env:
   ACR_URL: ${{ secrets.ACR_URL }}
